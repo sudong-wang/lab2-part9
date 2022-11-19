@@ -1,5 +1,12 @@
-# lab2-part9
-# code
+### lab2-part9
+
+### Intro
+
+In general, we basically use 2 pio(`pio0` and `pio1`) and `sm = 0` to deliever color packet to PIO module and to deliever bit&full packet to WS2812. So PY2040 will receive the color info from APDS9960 via PIO I2C and then deliever it to ws2812 pixel module. Then the neopixel will perform color and brightness changes which APDS9960 detected.
+
+### code
+
+We directly added neopixel function to APDS9960.c in the previous section.
 
 
             #include <stdio.h>
@@ -43,9 +50,9 @@
             uint sm = 0;
             PIO pio_1 = pio1;
             uint sm_1 = 0;
-
-
-
+            
+            // set Neopixel
+            
             void turn_on_NeoPixel_power(){
                 const uint led_pin = WS2812_POWER_PIN;
                 gpio_init(led_pin);
@@ -54,18 +61,11 @@
             }
 
 
-
-
-
             void neopixel_set_rgb(uint32_t rgb) {
                 // convert RGB to GRB
                 uint32_t grb = ((rgb & 0xFF0000) >> 8) | ((rgb & 0x00FF00) << 8) | (rgb & 0x0000FF);
                 pio_sm_put_blocking(pio_1, 0, grb << 8u);
             }
-
-
-
-
 
 
 
@@ -89,8 +89,9 @@
             uint offset = pio_add_program(pio, &i2c_program);
             i2c_program_init(pio, sm, offset, PIN_SDA, PIN_SCL);
             sleep_ms(5000);
-
-
+            
+            // Initialize apds9960
+            
             uint8_t buf[2];
 
             buf[0] = 0x80;
@@ -114,8 +115,6 @@
             uint32_t pixel_grb = 0x00000000;
 
 
-
-
             while (true) {
 
                 int32_t r,g,b,c;
@@ -131,8 +130,10 @@
 
             }
     
- # gif
-    
+ ### Result:
+
+The neopixel will perform color and brightness changes which APDS9960 detected. The resylt is shown below:
+
 ![4ndwq-xdx3h](https://user-images.githubusercontent.com/113209201/202830625-d335e3c6-8fb3-45cc-984f-ce63c719e334.gif)
 
            
