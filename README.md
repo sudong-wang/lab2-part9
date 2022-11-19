@@ -5,7 +5,7 @@
 In general, we basically use 2 pio(`pio0` and `pio1`) and `sm = 0` to deliever color packet to PIO module and to deliever bit&full packet to WS2812. So PY2040 will receive the color info from APDS9960 via PIO I2C and then deliever it to ws2812 pixel module. Then the neopixel will perform color and brightness changes which APDS9960 detected.
 
 ### code
-
+```
 We directly added neopixel function to APDS9960.c in the previous section.
 
 
@@ -129,7 +129,8 @@ We directly added neopixel function to APDS9960.c in the previous section.
             }
 
             }
-    
+ ```
+ 
  ### Result:
 
 The neopixel will perform color and brightness changes which APDS9960 detected. The resylt is shown below:
