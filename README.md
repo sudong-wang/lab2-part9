@@ -140,7 +140,7 @@ The neopixel will perform color and brightness changes which APDS9960 detected. 
            
 
 ![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/113209201/202834158-5cf55f10-7099-4687-ab76-1faaac011858.gif)
-
+Then, we use another py2040 connected to PIO I2C to read SDA and SCL (with part 6 code):
         
  
 
